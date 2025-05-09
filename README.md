@@ -8,7 +8,4 @@ Projects
 
 Technologies Used
 
-Getting Started
-
-Contact
 # CodeAlpha-Tasks
