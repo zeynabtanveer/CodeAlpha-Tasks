@@ -1,0 +1,54 @@
+# Step 1: Import Libraries
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+sns.set(style="whitegrid")
+%matplotlib inline
+
+# Step 2: Load the dataset
+df = pd.read_csv("books.csv")
+df.head()
+
+# Step 3: Inspect data
+df.info()
+df.describe(include='all')
+
+# Step 4: Clean the data
+
+# a) Remove pound symbol from price and convert to float
+df['price'] = df['price'].str.replace('£', '').astype(float)
+
+# b) Convert rating words to numbers
+rating_map = {'One': 1, 'Two': 2, 'Three': 3, 'Four': 4, 'Five': 5}
+df['rating'] = df['rating'].map(rating_map)
+
+# Step 5: Check cleaned data
+df.info()
+df.describe()
+
+# Step 6: Visualizations
+
+# Price Distribution
+plt.figure(figsize=(8, 4))
+sns.histplot(df['price'], kde=True, bins=20)
+plt.title('Book Price Distribution')
+plt.xlabel('Price (£)')
+plt.ylabel('Count')
+plt.show()
+
+# Rating Distribution
+plt.figure(figsize=(6, 4))
+sns.countplot(x='rating', data=df)
+plt.title('Rating Distribution')
+plt.xlabel('Rating (Stars)')
+plt.ylabel('Count')
+plt.show()
+
+# Price vs Rating
+plt.figure(figsize=(6, 4))
+sns.boxplot(x='rating', y='price', data=df)
+plt.title('Price vs. Rating')
+plt.xlabel('Rating')
+plt.ylabel('Price (£)')
+plt.show()
